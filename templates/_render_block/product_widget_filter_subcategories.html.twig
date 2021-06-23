@@ -1,0 +1,12 @@
+<div class="ml-3 closest">
+    <div class="d-inline-block" style="overflow: hidden;">
+        <input type="checkbox" name="{{ category.referenceKey }}" id="{{ category.referenceKey }}" value="{{ category.referenceKey }}">
+    </div>
+    <div class="d-inline-block product-category-list-limit-char" style="max-width: 15ch;">
+        <span style="padding-top: 5px;">
+            <label for="{{ category.referenceKey }}">
+                {{ category.name }} <span class="condensed-sm">({{ category.totalProducts }})</span>
+            </label>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="cart-box closed">
+	<div class="cart-box-header">
+		<a href="#paymentMethodCollapse">
+			<div class="cart-box-header-number">0</div>
+			<div class="cart-box-header-title">{% trans %}Payment Method{% endtrans %}</div>
+			<div class="cart-box-header-collapse-button">
+				<i class="mdi mdi-plus"></i>
+			</div>
+		</a>
+	</div>
+
+	<div class="collapse collapse-item" id="paymentMethodCollapse">
+		{% if LayoutFunctions.getEnvVars('SHOW_POINTS_PAYMENT') == "true" %}
+			<div class="px-18">
+				<div class="cart-box-payment-type">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="inline_radio_payment_type_options" id="inline_radio_money" value="money" checked="checked">
+						<label class="form-check-label" for="inline_radio_money">{% trans %}Money{% endtrans %} ( {{ product.totalPrice }} {{ LayoutFunctions.getCurrencySymbol() }} )</label>
+					</div>
+					{% if product.isFullPointsPayment %}
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="inline_radio_payment_type_options" id="inline_radio_points" value="points">
+							<label class="form-check-label" for="inline_radio_points">{% trans %}Points{% endtrans %} ( {{ product.totalPoints }} )</label>
+						</div>
+					{% endif %}
+					{% if product.totalPointsByPointsPercentage > 0 %}
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="inline_radio_payment_type_options" id="inline_radio_money_and_points" value="money_and_points">
+							<label class="form-check-label" for="inline_radio_money_and_points">
+								{% trans %}Money{% endtrans %} ( {{ product.totalPriceByPointsPercentage }} {{ LayoutFunctions.getCurrencySymbol() }} ) + {% trans %}Points{% endtrans %} ( {{ product.totalPointsByPointsPercentage }} )
+							</label>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if listPaymentGateway|length %}
+			<div class="row justify-content-center">
+				{% for paymentGateway in listPaymentGateway %}
+					<div class="card border-0 m-2 text-center" style="min-width: 180px;" id="{{paymentGateway.referenceKey}}">
+						{% if paymentGateway.referenceKey == 'payment_gateway_none' or paymentGateway.referenceKey == 'payment_gateway_check_availability' %}
+							<button data-gateway="{{baseUri}}{{ paymentGateway.link }}" class="font-weight-bold btn rounded-0 btn-secondary text-white btn-checkout-gateway w-100" style="font-size: 1.1em">
+								{{ paymentGateway.name }}
+							</button>
+						{% else %}
+							<button data-gateway="{{baseUri}}{{baseUri}}{{ paymentGateway.link }}" class="rounded-0 btn btn-secondary btn-checkout-gateway w-100">
+								<i class="fab {{ paymentGateway.icon}} fa-3x text-white"></i>
+							</button>
+							<span class="small">{% trans %}Pay with{% endtrans %}
+								<strong>{{ paymentGateway.name }}</strong>
+							</span>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</div>

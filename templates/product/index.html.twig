@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% set enableAsyncProducts = true %}
+
+{% block seo %}
+    {{ include ('_includes/seo.html.twig', {
+        'title': 'Products'|trans,
+    }) }}
+{% endblock %}
+
+{% block body %}
+    {{ include('_includes/breadcrumb.html.twig', {
+        'path': [
+            {'#': 'Products'|trans}
+        ]
+    }) }}
+    {% include '_includes/modal_product_color_size.html.twig' %}
+
+    <section id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-xl-3 d-flex align-items-start mb-5">
+                    {% if enableAsyncProducts %}
+                        {% include '_render_block/product-filters-ajax.html.twig' %}
+                    {% else %}
+                        {% include '_render_block/product-filters.html.twig' %}
+                    {% endif %}
+                </div>
+                <div class="col-12 col-md-8 col-xl-9">
+                    {#% if colProductType is defined %}
+                        <div class="d-block w-100 text-right mb-2 pr-2">
+                            {% for productType in colProductType %}
+                                <a href="{{ baseUri }}/product/{{ productType.referenceKey }}" class="btn btn-outline-secondary">
+                                    {{ productType.name|trans }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %#}
+
+                    {% if (colSlideContent ?? []) |length %}
+                    <div class="simple-slider">
+                        {% for slideItem in colSlideContent %}
+                        <div>
+                            <div class="simple-slider-content" style="background-image: url('{{slideItem.filename}}');">
+                                <div class="simple-slider-content-info">
+                                    <p class="simple-slider-content-info-title">{{slideItem.title}}</p>
+                                    <p class="simple-slider-content-info-subtitle">{{slideItem.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                    {#% include '_render_block/simple-slider.html.twig' %#}
+
+                    {% if colProducts is defined and colProducts|length > 0 %}
+                        {% include '_render_block/products-header.html.twig' %}
+
+                        <div id="product_list_wrapper" class="row mb-3">
+                            {% for product in colProducts %}
+                                {% include '_render_block/product-card-rounded.html.twig' %}
+                            {% endfor %}
+                        </div>
+
+                        {% include '_render_block/paginator.html.twig' %}
+                        <div id="pagination_ajax_wrapper"></div>
+
+                    {% else %}
+                        <div class="col-12 text-center pt-5">
+                            <h2>{% trans %}There is not product in this query{% endtrans %}</h2>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function () {
+            var options = {
+                'successMessage': '{% trans %}Data Updated{% endtrans %}',
+                'errorMessage': '{% trans %}Error Occurred on updating!{% endtrans %}',
+            };
+            querybizWishlist.init(options);
+        });
+    </script>
+
+    {% if enableAsyncProducts %}
+        <script src="/assets/js/product/querybiz-async-products.js?v={{ LayoutFunctions.getHashFile('/assets/js/product/querybiz-async-products.js') }}"></script>
+    {% endif %}
+{% endblock %}

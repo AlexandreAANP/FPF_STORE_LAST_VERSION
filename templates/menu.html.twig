@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg bg-primary flex-wrap mb-0 b-b">
+    <div class="container pt-1 my-0">
+        <!--a href="/{{ app.request.getLocale() }}" title="{% trans %}Home{% endtrans %}">
+            <img src="/assets/images/logo_fpf.svg" style="width: 120px" alt="title="{% trans %}Home{% endtrans %}"">
+        </a-->
+
+        <div class="collapse navbar-collapse">
+            <ul id="desktop-menu" class="list-unstyled d-flex align-items-center justify-content-center mt-0 mb-0 w-100">
+{#                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle btn-sm" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Coleções
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Option</a></li>
+                        <li><a class="dropdown-item" href="#">Option</a></li>
+                        <li><a class="dropdown-item" href="#">Option</a></li>
+                    </ul>
+                </li>#}
+
+                {% include '_render_block/menu_links.html.twig' %}
+
+                {% set supportedLanguages = LayoutFunctions.getSupportedLanguages(LayoutFunctions.getEnvVars('SUPPORTED_LOCALES')) %}
+                {% if supportedLanguages|length > 1 %}
+                    <li class="nav-item dropdown ml-auto">
+                        <a class="nav-link py-0 dropdown-toggle btn-sm" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                            {{ LayoutFunctions.getCurrentLanguage()|upper }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for language in supportedLanguages %}
+                                {% set href = LayoutFunctions.changeLanguage(language, languageUri) %}
+                                {% if href == '/' %}
+                                    {% set href = '/' ~ LayoutFunctions.getEnvVars('DEFAULT_LANGUAGE') %}
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ href }}">{{ language|upper }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle btn-sm" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                        EUR €
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">EUR €</a></li>
+                    </ul>
+                </li>
+
+                <li class='pt-1'>
+                    <a href="{{ baseUri }}/product-cart" class="nav-link nav-link-warning" data-loading-text="{% trans %}Cart{% endtrans %} ({{ productItemsInCart }})">
+                        <i class="mdi mdi-cart"></i>
+                        <span class="warning background-color-yellow">{{ productItemsInCart ?? 0 }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <a href="#menu" class="d-lg-none btn bt-link ml-auto main-menu">
+            <img src="/assets/images/navbar.svg" />
+        </a>
+    </div>
+</nav>
+
+<nav id="menu" class="panel" role="navigation">
+    <div class="d-flex flex-column align-items-end h-100">
+        <a href="#menu" class="main-menu mb-4">
+            <img src="/assets/images/close-menu.svg" alt="close menu">
+        </a>
+        <ul id="menu-links" class="list-unstyled d-flex flex-column flex-fill w-100">
+            {% include '_render_block/menu_links.html.twig' %}
+            <li>
+                    <a href="{{ baseUri }}/product-cart" class="nav-link nav-link-warning" data-loading-text="{% trans %}Cart{% endtrans %} ({{ productItemsInCart }})">
+                        <i class="mdi mdi-cart"></i>
+                        <span class="warning">{{ productItemsInCart ?? 0 }}</span>
+                    </a>
+            </li>
+        </ul>
+
+        {#<div class="d-flex align-items-center justify-content-between w-100 pr-1 pl-1">
+            {% include '_render_block/menu-links.html.twig' %}
+        </div>#}
+    </div>
+</nav>
+
+<div class="container mt-4 mb-5">
+    <div class="row d-flex justify-content-between">
+        <div class="col-6 col-lg-2 order-lg-1">
+            <a href="{{ baseUri }}/"><img src="/assets/images/logo_fpf.svg"></a>
+        </div>
+
+        <div class="col-6 col-lg-3 order-lg-3 mb-1 mb-lg-0">
+        {% if customerId is defined and customerId > 0 %}
+                <a href="{{ baseUri }}/customer" class="btn btn-secondary text-white background-color-orange border-color-orange">{% trans %}Customer Area{% endtrans %}</a>
+        {% else %}
+                <a href="{{ baseUri }}/signup" class="btn font-weight-bold border-color-yellow color-yellow rounded-0 float-right bg-white">{% trans %}Register{% endtrans %}</a>
+                <a href="{{ baseUri }}/login" class="btn font-weight-bold rounded-0 text-white border-color-orange background-color-orange float-right">{% trans %}Login{% endtrans %}</a>
+        {% endif %}
+        </div>
+
+        <div class="col-12 col-lg order-lg-2 d-flex justify-content-center">
+            <form id="formProductSearch" action="{{ baseUri }}/product" method="GET" class="d-table w-100">
+            <div class="input-group mb-3">
+                <input list="list_search_all_categories" type="text" autocomplete="off" name="search" class="form-control rounded-0 pr-4" placeholder="{% trans %}Search{% endtrans %}">
+                    <datalist id="list_search_all_categories">
+
+                    {% set colProductCategories = LayoutFunctions.getProductCategories() %}
+                    {% if colProductCategories|length %}
+                        {% for productCategory in colProductCategories %}
+                            <option>{{ productCategory.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                    </datalist>
+                <div class="input-group-append">
+                    <button type="submit" class="pr-1 pl-1 pt-0 pb-0 btn m-0 rounded-0 border-top border-right border-bottom bg-white"> <i class="mdi mdi-magnify color-purple"></i></button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

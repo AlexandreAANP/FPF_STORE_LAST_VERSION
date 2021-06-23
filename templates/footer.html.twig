@@ -1,0 +1,255 @@
+<footer class="bg-white">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="order-1 order-lg-2 col-12 col-lg-4 d-flex align-items-center justify-content-center py-3 footer-top-middle">
+                    <i class="fas fa-truck color-purple fa-2x"></i>
+                    <span class="footer-top-text">{% trans %}Delivery service available{% endtrans %}</span>
+                </div>
+                <div class="order-2 order-lg-1 col-12 col-lg-4 d-flex align-items-center justify-content-center py-3">
+                    <i class="fas fa-water color-purple fa-2x"></i>
+                    <span class="footer-top-text">{% trans %}Unique offers online{% endtrans %}</span>
+                </div>
+                <div class="order-3 order-lg-3 col-12 col-lg-4 d-flex align-items-center justify-content-center py-3">
+                    <i class="fas fa-undo-alt color-purple fa-2x"></i>
+                    <span class="footer-top-text">{% trans %}Easy and Free Returns{% endtrans %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-menu mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-5 d-flex flex-column order-1 order-lg-2">
+                    <span class="footer-menu-header d-block">{% trans %}Newsletter{% endtrans %}</span>
+                    <p>{% trans %}Subscribe our newsletter{% endtrans %}.</p>
+
+                    {% set varNameFormTemplateEmail = 'newsletter' %}
+                    <div class="d-block mt-2">
+                        <form id="form_{{ varNameFormTemplateEmail }}_sendmail_template" class="sendmail-template" action="/sendmailTemplate" method="POST" novalidate>
+                            <input type="hidden" name="content_email_template" value="emailtemplate-{{ varNameFormTemplateEmail }}">
+                            <input type="hidden" name="content_email_template_table" value="{{ varNameFormTemplateEmail }}">
+                            <input type="hidden" name="date_inserted" value="{{ 'now'|date('d/m/Y H:i:s') }}">
+                            <input type="hidden" name="customer_id" value="{{ customerId }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" placeholder="{% trans %}Name{% endtrans %} *">
+                            </div>
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="email" placeholder="{% trans %}Type your Email{% endtrans %} *">
+                                <input type="submit" id="form_{{ varNameFormTemplateEmail }}_sendmail_template_submit" value="{% trans %}Send{% endtrans %}" class="input-group-text btn" data-loading-text="{% trans %}Sending{% endtrans %}">
+                            </div>
+                        </form>
+                        <div id="form_{{ varNameFormTemplateEmail }}_sendmail_template_sent" class="shadow p-2" style="display: none">
+                            <button type="button" id="form_{{ varNameFormTemplateEmail }}_sendmail_template_form_back" class="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{% trans %}Email has sent successfully{% endtrans %}!</strong><br>{% trans %}Thank you for contacting us{% endtrans %}!
+                        </div>
+                    </div>
+
+                    <div class="my-4 d-lg-none">
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7 order-2 order-lg-1">
+
+                <div class='row'>
+                    <div class='col'>
+                        <ul class="list-unstyled mb-5">
+                            <li class="footer-menu-header">{% trans %}Contacts{% endtrans %}</li>
+                            <li><span class="text address"><p>{{ LayoutFunctions.getLayoutVars('PAGE_CONTACT_ADDRESS') }}</p></span></li>
+                            <li><span class="text phone"><p>{{LayoutFunctions.getLayoutVars('PAGE_CONTACT_PHONE') }}</p></span></li>
+                            <li><span class="text email"><p>{{ LayoutFunctions.getLayoutVars('PAGE_CONTACT_EMAIL') }}</p></span></li>
+                        </ul>
+
+                        <!--ul class='list-unstyled mb-5'>
+                            <li class="footer-menu-header">{%trans%}Quick Acess{%endtrans%}</li>
+                            <li><a class='' href="/" title="">{%trans%}Home{%endtrans%}</a></li>
+                            <li><a class='' href="" title="">{% trans %}Procedures{% endtrans %}</a></li>
+                            <li><a class='' href="" title="">{%trans%}Offline Stores{%endtrans%}</a></li>
+                            <li><a class='' href="" title="">{%trans%}Privacy Policy{%endtrans%}</a></li>
+                            <li><a class='' href="" title="">{%trans%}Our Valued Customers{%endtrans%}</a></li>
+                        </ul-->
+                    </div>
+                    <div class='col '>
+                        <ul class='list-unstyled mb-5'>
+                            <li class="footer-menu-header">{% trans %}Help{% endtrans %}</li>
+                            <li><a class='' href="/{{app.request.getLocale()}}/privacy-policy-litigation" title="">{% trans %}Litigation{% endtrans %}</a></li>
+                            <li><a class="" href="/{{app.request.getLocale()}}/privacy-policy-delivery-policy" title="">{% trans %}Deliveries{% endtrans %}</a></li>
+                            <li><a class="" href="/{{app.request.getLocale()}}/privacy-policy-return-policy" title="">{% trans %}Cancellations & Returns{% endtrans %}</a></li>
+                            <!--li><a class="" href="" title="">{% trans %}FAQ{% endtrans %}</a></li-->
+                        </ul>
+                    </div>
+                     <div class='col '>
+                        <ul class='list-unstyled mb-5'>
+                            <li class="footer-menu-header ">{% trans %}Terms{% endtrans %}</li>
+                            <!--li><a class='' href="" title="">{% trans %}About Us{% endtrans %}</a></li>
+                            <li><a class="" href="" title="">{% trans %}Contacts{% endtrans %}</a></li>
+                            <li><a class="" href="" title="">{% trans %}Collaborate with us{% endtrans %}</a></li-->
+                            <li><a class="" href="/{{app.request.getLocale()}}/privacy-policy-politica-de-privacidade" title="">{% trans %}Privacy Policy{% endtrans %}</a></li>
+                            {#<li><a class="" href="/{{app.request.getLocale()}}/privacy-policy" title="">{% trans %}Terms & Conditions{% endtrans %}</a></li>#}
+                        </ul>
+                    </div>
+                </div>
+
+                    {% set colContentFooter = LayoutFunctions.getContentGroup('content?area=content-area-footer&fields=area,url', 'area') %}
+                    {% if colContentFooter is iterable and colContentFooter|length > 0 %}
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <ul class="list-unstyled mb-5">
+                                    <li class="footer-menu-header">{% trans %}Quick access{% endtrans %}</li>
+                                    <li><a href="{{ baseUri }}/" title="{% trans %}Home{% endtrans %}">{% trans %}Home{% endtrans %}</a></li>
+                                </ul>
+                            </div>
+
+                            {% if colContentFooter['content-area-help'] is defined %}
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <ul class="list-unstyled mb-5">
+                                        <li class="footer-menu-header">{% trans %}Help{% endtrans %}</li>
+                                        {% for page in colContentFooter['content-area-help'] %}
+                                            {% set url = page.referenceKey %}
+                                            {% if page.url != '' %}
+                                                {% set url = page.url %}
+                                            {% endif %}
+                                            <li><a href="{{ baseUri }}/{{ url }}" title="{{ page.title }}">{{ page.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% if colContentFooter['content-area-contact-us'] is defined %}
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <ul class="list-unstyled mb-5">
+                                        <li class="footer-menu-header">{% trans %}Contact us{% endtrans %}</li>
+                                        {% for page in colContentFooter['content-area-contact-us'] %}
+                                            {% set url = page.referenceKey %}
+                                            {% if page.url != '' %}
+                                                {% set url = page.url %}
+                                            {% endif %}
+                                            <li><a href="{{ baseUri }}/{{ url }}" title="{{ page.title }}">{{ page.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payments">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <hr>
+                </div>
+                <div class="col-12 col-md-9 d-flex flex-wrap flex-column flex-md-row justify-content-center justify-content-md-start">
+
+                    <div class="d-flex flex-wrap">
+                        <a href="javascript:void(0)" title="Payments 1">
+                            <img src="/assets/images/payments-1.png" alt="Payment 1">
+                        </a>
+                        <a href="javascript:void(0)" title="Payments 2">
+                            <img src="/assets/images/payments-2.png" alt="Payment 2">
+                        </a>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <a href="javascript:void(0)" title="Paypal">
+                            <img src="/assets/images/paypal.png" alt="Paypal">
+                        </a>
+                        <a href="javascript:void(0)" title="Visa">
+                            <img src="/assets/images/visa.png" alt="Visa">
+                        </a>
+                        <a href="javascript:void(0)" title="Mastercard">
+                            <img src="/assets/images/mastercard.png" alt="Mastercard">
+                        </a>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <a href="javascript:void(0)" class="text" title="Points">{%trans%}Points{%endtrans%}</a>
+                        <a href="javascript:void(0)" class="text" title="Tokens">{%trans%}Tokens{%endtrans%}</a>
+                        <a href="javascript:void(0)" class="text" title="Saldos e Descontos">{%trans%}Sales and Discounts{%endtrans%}</a>
+                    </div>
+
+                </div>
+                <div class="col-12 mt-5 text-center">
+                    <a href="https://www.livroreclamacoes.pt/inicio" target="_blank" class="border-0" style="margin:0 auto">
+                        <img src="/assets/images/complains.png" style="max-width: 150px!important;max-height:60px;width:150px">
+                    </a>
+                </div>
+                <div class="col-12 col-md-3 d-flex flex-column align-items-md-end">
+                    <div class="my-5 d-md-none">
+                        <hr>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-5">
+                        {% include "_includes/social_media.html.twig" %}
+                    </div>
+                </div>
+                <div class="col-12 mt-5 mt-md-3">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright d-flex justify-content-center mb-5">{{ LayoutFunctions.getLayoutVars('COPYRIGHT')|raw }} {{ 'now' | date('Y') }} - {% trans %}All rights reserved{% endtrans %}.</div>
+
+    {% include '_includes/cookie_consent.html.twig' %}
+</footer>
+
+
+{#
+<footer>
+    <div class="container">
+        <div class="row justify-content-md-center">
+
+            <div class="col-12 py-3 mb-3 border borde-top">
+                {% include "_includes/social_media.html.twig" %}
+            </div>
+
+            <div class="col-lg-4">
+                <div class="h5">
+                    <span>{% trans %}Company{% endtrans %}</span>
+                </div>
+                <div class="list_footer_links">
+                    <ul>
+                        {% set colContent = LayoutFunctions.getAPI('content?area=content-area-footer') %}
+
+                        {% if colContent.colContent is defined %}
+                            {% for area in colContent.colContent %}
+                                <li><a href="{{ area.referenceKey }}">{{ area.title }}</a> </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="h5">
+                    <span>{% trans %}Information{% endtrans %}</span>
+                </div>
+
+                <div class="list_footer_links">
+                    <ul>
+                        <li><a href="{{ baseUri }}/contact">{% trans %}Contacts{% endtrans %}</a></li>
+                        <li><a href="{{ baseUri }}/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a></li>
+                        <li><a href="{{ baseUri }}/terms">{% trans %}Terms{% endtrans %}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <a rel="nofollow" href="https://www.livroreclamacoes.pt/inicio/reclamacao" target="_blank"><img src="https://www.consumidor.gov.pt/upload/membro.id/imagens/i010896.png"></a>
+            </div>
+
+            <div class="col-12 py-3 mt-3 border borde-top">
+                <h6>{{ LayoutFunctions.getLayoutVars('COPYRIGHT')|raw }} {{ 'now' | date('Y') }} - {% trans %}All rights reserved{% endtrans %}</h6>
+            </div>
+        </div>
+    </div>
+
+    {% include '_includes/cookie_consent.html.twig' %}
+</footer>
+#}

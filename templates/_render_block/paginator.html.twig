@@ -1,0 +1,66 @@
+{#<nav>
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Ant</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <li class="page-item"><a class="page-link" href="#">Seg</a></li>
+    </ul>
+</nav>#}
+
+{% if (arPagination.currentPage is defined) and (arPagination.currentPage > 0) %}
+    <nav id="pagination_default">
+    {% set path = baseUri~'\/product\/'%}
+    {% set path = productType ? path ~ productType~'\/' : path %}
+    {% set category = (app.request.get('category') ?? null) ? '?category='~app.request.get('category') : null %}
+
+        <ul class="pagination">
+            {% if (arPagination.currentPage is defined) and (arPagination.currentPage > 1) %}
+                <li class="page-item"><a href="{{path ~ '1'~ category}}" class="page-link"><i class='fas fa-angle-double-left'></i></a></li>
+            {% endif %}
+
+            {% if (arPagination.currentPage is defined) and (arPagination.currentPage > 1) %}
+                <li class="page-item"><a href="{{path ~ (arPagination.currentPage - 1) ~ category}}" class="page-link"><i class='fas fa-angle-left'></i></a></li>
+            {% endif %}
+
+
+            {% set limitItems = 0 %}
+            {% for key in 1..arPagination.pages %}
+
+                
+                {% if limitItems < 5 %}
+                    {% if key != arPagination.currentPage %}
+                         <li class="page-item">
+                            <a href="{{path ~ key ~ category}}" class="page-link">
+                               {{key}}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if key == arPagination.currentPage %}
+                        {% set current = 'active' %}
+                        <li class="page-item">
+                            <a href="{{path ~ key ~ category}}" class="{{ current }} background-color-yellow text-white page-link">
+                                {% if (arPagination.currentPage is defined) and (arPagination.currentPage > 0) %} {{ key }} {% else %} 1 {% endif %}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+                {% set limitItems = limitItems + 1 %}
+            {% endfor %}
+
+
+            <li class="page-item">
+                {% if (arPagination.currentPage is defined) and (arPagination.currentPage < arPagination.pages) %}
+            <li class="page-item"><a href="{{path ~ (arPagination.currentPage + 1) ~ category}}" class="page-link"><i class='fas fa-angle-right'></i></a></li>
+                {% endif %}
+
+                {% if (arPagination.currentPage is defined) and (arPagination.currentPage < arPagination.pages) %}
+                    <li class="page-item"><a href="{{path ~ arPagination.pages ~ category}}" class="page-link"><i class='fas fa-angle-double-right'></i></a></li>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+{% endif %}

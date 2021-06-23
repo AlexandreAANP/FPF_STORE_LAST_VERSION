@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block metatag_description %}{{ arProduct.description }}{% endblock %}
+{% set description = arProduct.description %}
+{% set title = arProduct.name %}
+{% set image = arProduct.filename ?? cdnUrl%}
+{% block body %}
+    {% include '_includes/breadcrumb.html.twig' %}
+    {% set product = arProduct %}
+    <style>
+        .w-h-20{height:20px;width:20px}
+    </style>
+    <section id="product" class="mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-5 products-large-image">
+                    <i class="badge badge-info mt-1 ml-1 float-right mr-1" style="font-size:1rem">{%trans%}New{%endtrans%}</i>
+                    <i class="badge badge-secondary mt-1 ml-1" style="font-size:1rem; position: absolute">#{{product.id}}</i>
+                    <div class="products-large-image-main" style="background-image: url('{{ image }}')"></div>
+                    <div id="image-selector-slider">
+						{% if arProduct.productFiles is defined %}
+							{% for file in arProduct.productFiles %}
+								{% if file.isImage %}
+									<div>
+										<a href="{{ file.filename }}" class="products-large-image-small-image">
+											<div style="background-image: url('{{ file.filename }}');"></div>
+										</a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7 products-desc">
+                    <h1 class="products-desc-name">{{ arProduct.name }}</h1>
+                    <div class="products-desc-sub w-100 text-right">
+                        <span class="badge badge-success">3.8</span>
+                        <span class="products-desc-pos">1242 {%trans%}Ratings{%endtrans%}</span>
+                        {% if arProduct.referenceSku ?? '' != '' %}
+                            <span class="products-desc-sku text-left">SKU: {{ arProduct.referenceSku}}</span>
+                        {% endif %}
+                        <b class="available text-success d-none w-100">{% trans %}Available{% endtrans %}</b>
+                        <b class="available text-danger d-none w-100">{% trans %}Unavailable{% endtrans %}</b>
+                    </div>
+                    <div class="row">
+                        <div id="modal_product_specification" class="col-sm-6 col-12 mb-4">
+                            <div class="w-100 p-2">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-desc-values col-sm-6 col-12 mb-4 d-none">
+                            {# Price with vat #}
+                            <div class="float-right">
+                                <i style="font-size:12px">{%trans%}Vat Incl.{%endtrans%} {{arProduct.productVat ?? 0 *100}}%</i>
+                                <br>
+                                <span class="products-desc-values-original price-with-vat" data-vat-value="{{arProduct.productVat ?? 0}}">{{ arProduct.price}}</span><span>{{(LayoutFunctions.getCurrencySymbol() ?? '€')}}</span>
+                                {% if arProduct.productVat ?? 0 > 0 %}
+                                <br>
+                                <i style="font-size:12px">{%trans%}Out of Europe Tax Free{%endtrans%}</i>
+                                {%set priceWithoutVat = (arProduct.price / (1+ (arProduct.productVat ?? 0))) |round(2,'common') %}
+                                <br>
+                                <span class="products-desc-values-original price-no-vat">{{ priceWithoutVat|number_format(2, '.', ',') }}</span><span>{{(LayoutFunctions.getCurrencySymbol() ?? '€')}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% set classAddProduct = '' %}
+                    {% set productItemStockId = '' %}
+                    {% if arProduct.colItems ?? [] |length == 0 %}
+                        {% set classAddProduct = 'btn-modal-product-stock-zero' %}
+                    {% elseif arProduct.colItems ?? [] |length == 1 %}
+                        {% set classAddProduct = 'btn-add-product-cart' %}
+                        {% set productItemStockId = product.colItems[0].id %}
+                    {% elseif arProduct.colItems ?? [] |length > 1 %}
+                        {% set classAddProduct = 'btn-add-product-cart modal-product-color-size' %}
+                    {% endif %}
+
+                    <div class="d-flex align-items-center pb-3">
+                        <!--button class="secondary-btn background-color-purple rounded-0 text-white mx-1">{% trans %}Buy{% endtrans %}</button-->
+                        <button style="color:#ffc31f" class="{{ classAddProduct }} btn font-weight-bold border-color-yellow color-yellow rounded-0 float-right bg-white" data-product-id="{{ arProduct.id }}" data-product-item-stock-id="{{ productItemStockId }}" data-redirect="{{ baseUri }}/addProductToCart" disabled>{% trans %}Add to Cart{% endtrans %}</button>
+                    </div>
+
+                    <div class="products-desc-social d-flex flex-column_ flex-row align-items-md-center">
+                        <a href="#"><i class="mdi mdi-email color-blue"></i>{%trans%}Send Email to Friend{%endtrans%}</a>
+                        <!-- start wish list template -->
+                        <style>.fa-heart{cursor:pointer;font-size:16px}</style>
+                        {% from '\/product/wishlist.html.twig' import wishlistTemplate%}
+                        {{ wishlistTemplate( app.session.get('customerId'), product.wishlistId, product.id) }}
+                        <!-- end wish list template  -->
+                        <a href="javascript:void(0)">{%trans%}Favorites{%endtrans%}</a>
+                        <a href="javascript:void(0)"><i class="mdi mdi-compare-horizontal color-blue"></i>{%trans%}Compare{%endtrans%}</a>
+                    </div>
+
+                    <div class="products-desc-warning">
+                        {{ arProduct.description }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#tab-description">{% trans %}Description{% endtrans %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tab-specs">{%trans%}Specifications{%endtrans%}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tab-score">{%trans%}Reviews and Classification{%endtrans%}</a>
+                            </li>
+                        </ul>
+                        <div class="tabs-content">
+                            <div id="tab-description">
+                                {{ arProduct.text|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            querybiz.post('/getProductItemStock/{{ arProduct.id }}', function(data) {
+                let html = querybiz.buildLayoutModalProductItemStock(data);
+                //html = '<div id="modal_product_specification">' + html + '</div>';
+                $('#modal_product_specification').html(html);
+                querybiz.listenerModalProductItemStock();
+                $($('.modal-product-item-stock-color')[0]).click();
+            });
+
+            var options = {
+                'successMessage': '{% trans %}Data Updated{% endtrans %}',
+                'errorMessage': '{% trans %}Error Occurred on updating!{% endtrans %}',
+            };
+            querybizWishlist.init(options);
+        });
+    </script>
+
+{% endblock %}

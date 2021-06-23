@@ -1,0 +1,291 @@
+    {% set navs = [
+        {'name' : 'Home', 'link' : '\/', 'target' : '_self'},
+        {'name' : 'Products', 'link' : '\/product/physical-products', 'target' : '_self'},
+        {'name' : 'Software', 'link' : '\/product/physical-products', 'target' : '_self'},
+        {'name' : 'Services' , 'link' : 'https://fpfsistemas.ibiz.pt/Services', 'target' : '_blank'},
+        {'name' : 'Support', 'link' : 'https://fpfsistemas.ibiz.pt/customer-support', 'target' : '_blank'},
+        {'name' : 'Contacts', 'link' : '\/contact' , 'target' : '_self'}
+    ] %}
+
+
+{% block stylesheets %}
+
+<style>
+body {
+    min-width: 348px;
+    padding-top: 70px;
+    /*background: url(/assets/images/bg.jpg) fixed;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+}
+
+
+.logo{width: 150px}
+ul {list-style-type: none}
+
+@media only screen and (max-width: 992px){
+.navbar {
+    padding: .0rem 0.5rem!important;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: .5rem;
+    padding-left: .5rem}
+}
+
+.menu-locales, .menu-locales option{
+color:#000;
+font-size: 16px;
+font-weight:600}
+
+.menu-locales{padding: 8px 0px}
+
+.navbar {
+    position: fixed!important;
+    top: 0px;
+    background:#FFF;
+    min-width: 348px;
+    z-index: 999 !important;
+    width: 100% !important;
+    animation-duration: 1s;
+    transition-duration: 1s;
+}
+.menu-h{
+    text-transform: uppercase !important;
+    margin: 2px 22px 2px 2px !important;
+    font-weight: 600 !important;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+
+button:disabled{cursor:not-allowed;opacity:0.5}
+.menu-h i{font-size: 18px}
+.preloader>i {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 3rem);
+    font-size: 6em;
+    color:#00bc8c}
+.w-h-20{width: 20px; height: 20px}
+.logged{position: absolute;font-size: 9px;margin-top: 28px;margin-left: -26px}
+
+</style>
+
+{% endblock %}
+
+    {% set supportedLanguages = LayoutFunctions.getSupportedLanguages(LayoutFunctions.getEnvVars('SUPPORTED_LOCALES')) %}
+    {% set link = app.request.getSchemeAndHttpHost()~'\/'~(app.request.locale ?? 'en') %}
+
+        <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container own-container">
+            <!--a class="text-left" href="/{{ app.request.locale == 'en' ? '' : app.request.locale }}">
+                <img class="logo d-none d-sm-block" src='/assets/images/logo-frontoffice.png'>
+                <img class="d-block d-sm-none" style="width:78px" src='/assets/images/logo-frontoffice.png'>
+            </a-->
+
+            <ul class="d-block d-xl-none d-lg-none p-0" style="font-size: 1.2rem">
+                <!-- li class="float-left">
+                    <a class="nav-link nav-link-warning pt-4 btn-open-modal-product-search" style="cursor: pointer">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </li>
+
+                <li class="float-left">
+                    <a class="nav-link nav-link-warning pt-4" href="{{ baseUri }}/customer">
+                        <i class="fas fa-user"></i>
+
+                        {% if app.session.get('customerId') %}
+                        <sup class="fa fa-check text-success logged"></sup>
+                        {% endif %}
+
+                    </a>
+                </li-->
+                <li class="float-left">
+                {% if (productItemsInCart ?? 0) > 0 %}
+
+                <a href="{{baseUri~'\/product-cart'}}" class="pt-4 nav-link nav-link-warning" data-loading-text="{% trans %}Cart{% endtrans %} ({{ productItemsInCart }})">
+                    <i class="fas fa-shopping-cart"></i>
+                    <sup class="badge badge-warning cart-badge">{{ productItemsInCart }}</sup>
+                </a>
+
+                {% else %}
+
+                <a href="javascript:void(0)" class="pt-4 nav-link nav-link-warning" style="cursor:not-allowed">
+                    <i class="fas fa-shopping-cart"></i>
+                    <sup class="badge badge-warning cart-badge">{{ productItemsInCart ?? 0 }}</sup>
+                </a>
+
+                {% endif %}
+
+                </li>
+
+
+                {% if supportedLanguages|length > 1 %}
+
+                <li class="float-left pt-3">
+                    <select class="menu-locales border-0" onchange="$('.preloader').removeClass('d-none'); window.location.href=this.value.replace('/en/','/')">
+
+                            {% for language in supportedLanguages %}
+                            {% set href = LayoutFunctions.changeLanguage(language, languageUri) %}
+                            {% if href == '\/' %}
+                            {# % set href = '\/' ~ LayoutFunctions.getEnvVars('DEFAULT_LANGUAGE') % #}
+                            {% endif %}
+                            <option {{ (app.request.locale ?? 'en') == language ? 'selected' : null }} value={{href}}>
+                                {{ language|upper }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+            <div class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="ml-2 collapse navbar-collapse justify-content-md-start on-mobile" id="navbars">
+                <ul class="navbar-nav">
+
+                {% for l in navs %}
+                    <li class="nav-item">
+                        <a target='{{l.target}}' class="nav-link menu-h" href="{{ baseUri ~ l.link}}">{{ l.name|trans }}</a>
+                    </li>
+                {% endfor %}
+
+                </ul>
+            </div>
+            <div class="mr-n2 collapse navbar-collapse justify-content-md-end on-mobile">
+                <ul class="navbar-nav">
+
+                    <!--li class="nav-item d-none d-xl-block d-lg-block">
+                        <span class="nav-link menu-h btn-open-modal-product-search" style="cursor: pointer">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </li>
+
+                    <li class="nav-item d-none d-xl-block d-lg-block">
+                        <a class="nav-link menu-h" href="{{ baseUri }}/customer"><i class="fas fa-user"></i>
+                            {% if app.session.get('customerId') %}
+                            <sup class="fa fa-check text-success logged"></sup>
+                            {% endif %}
+                         </a>
+                    </li-->
+
+                    <li class="d-none d-xl-block d-lg-block">
+
+                        {% if (productItemsInCart ?? 0) > 0 %}
+
+                        <a href="{{baseUri~'\/product-cart'}}" class="nav-link menu-h" data-loading-text="{% trans %}Cart{% endtrans %} ({{ productItemsInCart }})">
+                            <i class="fas fa-shopping-cart"></i>
+                            <sup class="badge badge-warning cart-badge">{{ productItemsInCart }}</sup>
+                        </a>
+
+                        {% else %}
+
+                        <a href="javascript:void(0)" class="nav-link menu-h" style="cursor:not-allowed">
+                            <i class="fas fa-shopping-cart"></i>
+                            <sup class="badge badge-warning cart-badge">{{ productItemsInCart ?? 0 }}</sup>
+                        </a>
+
+                        {% endif %}
+
+                    </li>
+
+                    {% if supportedLanguages|length > 1 %}
+
+                    <li class="locales-container">
+                        <select class="ml-1 menu-locales border-0" onchange="window.location.href=this.value.replace('/en/','/')">
+
+                            {% for language in supportedLanguages %}
+                            {% set href = LayoutFunctions.changeLanguage(language, languageUri) %}
+                            {% if href == '\/' %}
+                            {# % set href = '\/' ~ LayoutFunctions.getEnvVars('DEFAULT_LANGUAGE') % #}
+                            {% endif %}
+                            <option {{ (app.request.locale ?? 'en') == language ? 'selected' : null }} value={{href}}>
+                                {{ language|upper }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+          </div>
+        </nav>
+
+
+{#
+<div class="modal" id="modal_product_search" style="margin-top: 100px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="formProductSearch" action="{{ baseUri }}/product" method="GET" class="d-table w-100">
+                    <div class="d-table-cell align-top w-100">
+                        <input list="list_search_all_categories" type="text" autocomplete="off" name="search" class="form-control m-0" placeholder="{% trans %}What are you looking for?{% endtrans %}" style="border: #343232 1px solid; height: 38px!important; border-right: 0!important; border-bottom-right-radius: 0!important; border-top-right-radius: 0!important">
+                        <datalist id="list_search_all_categories">
+                            {% set colProductCategories = LayoutFunctions.getProductCategories() %}
+                            {% if colProductCategories ?? [] |length %}
+                                {% for productCategory in colProductCategories %}
+                                    <option>{{ productCategory.name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </datalist>
+                    </div>
+                    <div class="d-table-cell align-top">
+                        <button type="submit" class="btn btn-outline-secondary rounded-pill m-0"
+                        onclick="$('.preloader').removeClass('d-none')"
+                        style="height: 38px!important; border-left: 0!important; border-bottom-left-radius: 0!important; border-top-left-radius: 0!important">
+                        <i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+#}
+
+<div class="container mt-4 mb-5">
+    <div class="row d-flex justify-content-between">
+        <div class="col-6 col-lg-2 order-lg-1">
+            <a href="{{ baseUri }}/"><img src="/assets/images/logo_fpf.svg"></a>
+        </div>
+
+        <div class="col-6 col-lg-3 order-lg-3 mb-1 mb-lg-0">
+        {% if customerId is defined and customerId > 0 %}
+                <a href="{{ baseUri }}/customer" class="btn btn-secondary text-white background-color-orange border-color-orange rounded-0 font-weight-bold">{% trans %}Customer Area{% endtrans %}</a>
+        {% else %}
+                <a href="{{ baseUri }}/signup" class="btn font-weight-bold border-color-yellow color-yellow rounded-0 float-right bg-white">{% trans %}Register{% endtrans %}</a>
+                <a href="{{ baseUri }}/login" class="btn font-weight-bold rounded-0 text-white border-color-orange background-color-orange float-right">{% trans %}Login{% endtrans %}</a>
+        {% endif %}
+        </div>
+
+        <div class="col-12 col-lg order-lg-2 d-flex justify-content-center">
+            <form id="formProductSearch" action="{{ baseUri }}/product" method="GET" class="d-table w-100">
+            <div class="input-group mb-3">
+                <input list="list_search_all_categories" type="text" autocomplete="off" name="search" class="form-control rounded-0 pr-4" placeholder="{% trans %}Search{% endtrans %}">
+                    <datalist id="list_search_all_categories">
+
+                    {% set colProductCategories = LayoutFunctions.getProductCategories() %}
+                    {% if colProductCategories|length %}
+                        {% for productCategory in colProductCategories %}
+                            <option>{{ productCategory.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                    </datalist>
+                <div class="input-group-append">
+                    <button type="submit" class="pr-1 pl-1 pt-0 pb-0 btn m-0 rounded-0 border-top border-right border-bottom bg-white"> <i class="fas fa-search color-purple"></i></button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+

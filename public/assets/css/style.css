@@ -1,0 +1,215 @@
+.card-header .card-message {
+	text-align: left;
+}
+
+.form-group LABEL {
+	font-weight: bold;
+	margin-left: 5px;
+	margin-bottom: 2px;
+	font-size: 90%;
+}
+
+.form-title {
+	background-color: #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.section-min-height {
+	min-height: 500px;
+}
+
+.product-category-list-limit-char {
+	max-width: 20ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#preloader {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#preloader .lds-facebook {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.lds-facebook {
+	display: inline-block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+}
+
+.lds-facebook div {
+	display: inline-block;
+	position: absolute;
+	left: 8px;
+	width: 16px;
+	background: #fff;
+	animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+	left: 8px;
+	animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+	left: 32px;
+	animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+	left: 56px;
+	animation-delay: 0;
+}
+
+.cart-box-payment-type {
+	background-color: #F1F1F1;
+    border-radius: 15px;
+    padding: 14px 15px;
+    margin-bottom: 29px;
+}
+
+@keyframes lds-facebook {
+	0% {
+		top: 8px;
+		height: 64px;
+	}
+	50%, 100% {
+		top: 24px;
+		height: 32px;
+	}
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root{
+	--yellow: #ffc31f;
+	--orange: #fb5223 ;
+	--purple:  #8019b3;
+	--blue: #1985a1;
+	--green: #8ac926;
+}
+
+.color-yellow{
+	color: var(--yellow) !important;
+}
+.background-color-yellow{
+	background-color: var(--yellow) !important;
+}
+.background-color-orange{
+	background-color: var(--orange) !important;
+}
+.border-color-orange{
+	border: 1px solid var(--orange) !important;
+}
+.color-orange{
+	color: var(--orange) !important;
+}
+.border-color-yellow{
+	border: 1px solid var(--yellow) !important;
+}
+.color-yellow{
+	color: var(--yellow) !important;
+}
+.color-purple{
+	color: var(--purple) !important;
+}
+.icon-search-menu{
+	position: absolute;
+    display: flex;
+    transform: translate(-80%,-50%);
+    top: 50%;
+    right: 0;
+}
+body{
+	background-size: 100vw;
+    background-image: url(/assets/images/body-bg.svg);
+    background-position: center;
+    background-position-y: 40px;
+}
+.products-slider-container-controls>div:first-child{
+	border-radius: 0 !important;
+	border-color: var(--yellow) !important;
+}
+.products-slider-container-controls>div:last-child{
+	border-radius: 0 !important;
+	border-color: var(--purple) !important;
+	background-color: var(--purple) !important;
+}
+.products-slider-container-controls>div:first-child .mdi{
+	color: var(--yellow);
+}
+.products-card.raise .products-card-overflowed{
+	box-shadow: 0 2px 13px 0 rgb(0 0 0 / 18%);
+    bottom: -36px;
+    height: 36px;
+}
+.text-campain{
+	position: absolute;
+}
+.text-campain .title-campain{
+	font-family: 'Roboto';
+    color: white;
+    font-weight: bold;
+    font-size: 29px;
+}
+.text-campain .btn-campain{
+	color: white;
+    border: 2px solid white;
+    border-radius: 21px;
+    text-align: center;
+}
+.products-card-rounded [class*="image"] {
+	border-radius: 0 !important;
+}
+.products-card-rounded [class*="overflowed"] {
+	border-radius: 0 !important;
+}
+
+.login-box{
+	background-color: #FFECB9;
+    border: 1px solid #E3E5EE;
+    padding: 50px 20px;
+    margin-bottom: 70px;
+    border-radius: 0 !important;
+}
+.background-color-purple{
+	background-color: var(--purple) !important;
+}
+.products-headers-options.w-btn-group .btn.active .mdi {
+	color: #cccccc !important;
+}
+.products-headers-options.w-btn-group .btn.active{
+	background-color: white !important;
+}
+.color-blue{
+	color: var(--blue) !important;
+}
+.border-color-purple{
+	border: 1px solid var(--purple) !important;
+}
+
+.btn-group-vertical:not(.btn-menu) .btn:hover{
+	background-color: var(--orange) !important;
+	border: 1px solid var(--orange) !important;
+}
+.background-color-blue{
+	background-color: var(--blue) !important;
+}
+
+.tns-ovh {
+	overflow: hidden;
+}

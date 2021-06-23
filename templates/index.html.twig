@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'slider.html.twig' %}
+
+    {% include '_includes/modal_product_color_size.html.twig' %}
+
+    <section class="mt-5 mb60">
+
+        <div class="container text-center mb-5">
+            {% set colContentHomeInstitucional = LayoutFunctions.getContentGroup('content?area=content-area-home-institucional&fields=area,url', 'area') %}
+            {% if colContentHomeInstitucional is iterable and colContentHomeInstitucional|length > 0 %}
+                {% if colContentHomeInstitucional['content-area-home-institucional'] is defined %}
+                    {% for page in colContentHomeInstitucional['content-area-home-institucional'] %}
+                        {% set url = page.referenceKey %}
+                        {% if page.url != '' %}
+                            {% set url = page.url %}
+                        {% endif %}
+
+                        <a href="{{ baseUri }}/{{ url }}" title="{{ page.title }}">
+                            <div class="col-5 d-inline-block" style="height: 200px; background-image: url('{{ page.filename }}'); background-size: cover; background-repeat: no-repeat">
+                                {{ page.title }}
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+
+            {% endif %}
+        </div>
+
+        <div class="container pb-5 mb-5">
+            <div class="row">
+                {% if colProductHighlighted['physical-products'] is defined and colProductHighlighted['physical-products']|length > 0 %}
+                    <div class="col-12 positive-z-index">
+                        <div class="products-slider-top">
+                            <h1>{% trans %}Highlighted{% endtrans %}</h1>
+                        </div>
+                        <div class="products-slider">
+                            {% for product in colProductHighlighted['physical-products'] %}
+                                {{ include('_render_block/product-card-rounded.html.twig', {
+                                    'baseUri': baseUri,
+                                    'product': product,
+                                }) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="container mb-5">
+            <div class="row">
+
+                {% if subBanners %}
+                {% for banner in subBanners %}
+
+                <div class="col-12 col-lg-6 pb-2 d-flex justify-content-center align-items-center">
+                    <div class="text-campain text-center">
+                        <div>
+                        <span class="title-campain">{{banner.title}}</span>
+                        </div>
+                        <div>
+                          <a href="{{banner.url}}" class="btn btn-campain rounded-0">{{banner.description}}</a>
+                        </div>
+                    </div>
+                    <img width="100%" src="{{banner.filename}}">
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+
+         <div class="container pb-5 mb-5">
+            <div class="row">
+                {% if colProductHighlighted['physical-products'] is defined and colProductHighlighted['physical-products']|length > 0 %}
+                    <div class="col-12 positive-z-index">
+                        <div class="products-slider-top">
+                            <h1>{% trans %}Related{% endtrans %}</h1>
+                        </div>
+                        <div class="products-slider">
+                            {% for product in colProductHighlighted['physical-products'] %}
+                                {{ include('_render_block/product-card-rounded.html.twig', {
+                                    'baseUri': baseUri,
+                                    'product': product,
+                                }) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

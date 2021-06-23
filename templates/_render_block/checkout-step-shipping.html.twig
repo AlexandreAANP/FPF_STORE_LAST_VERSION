@@ -1,0 +1,36 @@
+{% set arDeliveryMethods = LayoutFunctions.getAPI('order/delivery-methods?language=' ~ app.request.getLocale()) %}
+{% if arDeliveryMethods.colOrderDeliveryMethods is defined and arDeliveryMethods.colOrderDeliveryMethods is iterable %}
+    <div class="cart-box closed">
+        <div class="cart-box-header">
+            <a href="#shippingCollapse">
+                <div class="cart-box-header-number">0</div>
+                <div class="cart-box-header-title">{% trans %}Delivery & Shipping Methods{% endtrans %}</div>
+                <div class="cart-box-header-collapse-button">
+                    <i class="mdi mdi-plus"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse collapse-item" id="shippingCollapse" data-action="{{ baseUri ~ '/checkout/delivery-methods' }}">
+            <div class="px-18">
+                <div class="row">
+                    {% for deliveryMethod in arDeliveryMethods.colOrderDeliveryMethods %}
+                        <div class="col-md-6">
+                            <div class="cart-box-address">
+                                <div class="cart-box-address-info">
+                                    <label for="shipping_{{ deliveryMethod.id }}" class="d-flex">
+                                        <input type="radio" name="shipping_id" value="{{ deliveryMethod.id }}" id="shipping_{{ deliveryMethod.id }}">
+                                        <div>
+                                            <strong>{{ deliveryMethod.name }}</strong><br>
+                                            {{ deliveryMethod.description }}<br>{{ deliveryMethod.estimatedDeliveryTime }}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,108 @@
+{% if (product.listProductItemStock is defined) and (product.listProductItemStock|length > 0) %}
+
+    <div class="cart-box closed">
+        <div class="cart-box-header">
+            <a href="#reviewCollapse">
+                <div class="cart-box-header-number">0</div>
+                <div class="cart-box-header-title">{% trans %}Order Review{% endtrans %}</div>
+                <div class="cart-box-header-collapse-button">
+                    <i class="mdi mdi-plus"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse collapse-item" id="reviewCollapse">
+            {% set productQuantity = product.productQuantity %}
+            {% set productPriceQuantity = product.productPriceQuantity %}
+            {% set productPrice = product.productPrice %}
+            {% for key,item in product.listProductItemStock %}
+                {% set bgcolor = loop.index0 is odd ? '#fafafa' : '#fff' %}
+
+                <div>
+                    <div class="order-product order-product-inner">
+                        <div class="row w-100 flex-lg-nowrap align-items-center">
+                            <div class="col">
+                                <div class="order-image large mx-auto" style="background-image: url('{{ item.filename }}');"></div>
+                            </div>
+                            <div class="col flex-fill order-info">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h1 class="order-info-title">{{ item.name }}</h1>
+                                        {# {% if LayoutFunctions.getEnvVars('SHOW_POINTS_PAYMENT') == "true" %}
+                                            <span class="order-info-subtitle d-block pb-1">{% trans %}Is Full Points Payment{% endtrans %}:
+                                                {% if  item.isFullPointsPayment %}
+                                                <b class="d-none">1</b><i class="fa fa-check text-success fa-2x"></i>
+                                                {% else %}
+                                                <i class="fas fa-times text-danger fa-2x"></i>
+                                                {% endif %}
+                                            </span>
+                                            <span class="order-info-subtitle d-block">
+                                                {% trans %}Points Percentage{% endtrans %}: {{item.pointsPercentage * 100}}%
+                                            </span>
+                                        {% endif %} #}
+                                        {% if item.productTypeReferenceKey == 'physical-products' %}
+                                            <span class="order-info-subtitle">
+                                                {% trans %}Color{% endtrans %}: {{ product.productItems[item.productItemStockId].color }} | {% trans %}Size{% endtrans %}: {{ product.productItems[item.productItemStockId].size }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 mt-3 d-flex align-items-center">
+                                        <span class="order-info-price text-nowrap">
+                                            {{LayoutFunctions.getMoneyFormat(productPrice[item.productItemStockId] ?? 0.00)}}
+                                        </span>
+                                        <span class="order-info-quantity">
+                                            {% trans %}Quantity{% endtrans %}
+
+                                            {% if item.allowQuantity %}
+                                                {% if item.productTypeReferenceKey == 'physical-products' %}
+                                                    {{ productQuantity[item.productItemStockId] }}
+                                                {% else %}
+                                                    <span class="badge badge-pill badge-success ml-2">{% trans %}Availability{% endtrans %}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    {#
+                                    <div class="col-12 mt-3 d-flex align-items-center justify-content-between">
+                                        <span class="order-info-delivery-date">Entrega entre 3-4 Dias</span>
+                                        <a href="#" class="order-info-link">
+                                            <i class="mdi mdi-trash-can"></i>
+                                            Remover
+                                        </a>
+                                    </div>
+                                    #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+            <div class="bordered p-18" style="border-top: none;">
+                <div class="row no-gutters">
+                    <div class="col-12 col-lg-6 ml-auto">
+                        <div class="cart-box-total">
+                            <div class="row">
+                                <div class="col-9">
+                                    <b>{% trans %}Total{% endtrans %}</b>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <b class="cart-box-total-value">{{LayoutFunctions.getMoneyFormat(product.totalPrice ?? 0.00)}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row justify-content-between p-18">
+                <button role="link" onclick="window.location.href='{{ baseUri ~ '\/product-cart' }}'" type="button" class="secondary-btn background-color-purple rounded-0">
+                    {% trans %}Back to Cart{% endtrans %}
+                </button>
+                <button class="btn btn-outline-light text-dark rounded-pill btn-checkout-next float-right border-color-yellow color-yellow">
+                    {% trans %}Next{% endtrans %} <i class="mdi mdi-arrow-right-bold-circle-outline color-yellow rounded-0"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

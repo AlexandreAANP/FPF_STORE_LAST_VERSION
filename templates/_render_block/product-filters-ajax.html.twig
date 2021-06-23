@@ -1,0 +1,24 @@
+<div data-action="{{ baseUri ~ '/product-filter' }}" id="category_widget_filter" class="btn-group-vertical btn-menu">
+    <a href="#" class="btn btn-sm active rounded-0 background-color-orange">
+        {% trans %}Filters{% endtrans %}
+    </a>
+
+    <a href="#" class="btn btn-sm bg-white" data-toggle="collapse" data-target="#scoreCollapse" aria-expanded="true" aria-controls="scoreCollapse">
+        {% trans %}Category{% endtrans %}
+        <i class="mdi mdi-chevron-down"></i>
+    </a>
+    <div class="b-b w-100 bg-white">
+        <div class="to-collapse collapse show" id="scoreCollapse">
+            <div>
+                {% for category in colProductAllCategory.colProductCategories %}
+                    <div class="closest">
+                        <input type="checkbox" name="{{ category.referenceKey }}" id="{{ category.referenceKey }}" value="{{ category.referenceKey }}">
+                        <label for="{{ category.referenceKey }}">
+                            {{ category.name }} <span class="condensed-sm">({{ category.totalProducts }})</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
