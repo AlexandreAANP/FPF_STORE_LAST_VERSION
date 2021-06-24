@@ -83,14 +83,14 @@
                     </div>
 
                     <div class="products-desc-social d-flex flex-column_ flex-row align-items-md-center">
-                        <a href="#"><i class="mdi mdi-email color-blue"></i>{%trans%}Send Email to Friend{%endtrans%}</a>
+                        {#<a href="#"><i class="mdi mdi-email color-blue"></i>{%trans%}Send Email to Friend{%endtrans%}</a>#}
                         <!-- start wish list template -->
                         <style>.fa-heart{cursor:pointer;font-size:16px}</style>
                         {% from '\/product/wishlist.html.twig' import wishlistTemplate%}
                         {{ wishlistTemplate( app.session.get('customerId'), product.wishlistId, product.id) }}
                         <!-- end wish list template  -->
                         <a href="javascript:void(0)">{%trans%}Favorites{%endtrans%}</a>
-                        <a href="javascript:void(0)"><i class="mdi mdi-compare-horizontal color-blue"></i>{%trans%}Compare{%endtrans%}</a>
+                        {#<a href="javascript:void(0)"><i class="mdi mdi-compare-horizontal color-blue"></i>{%trans%}Compare{%endtrans%}</a>#}
                     </div>
 
                     <div class="products-desc-warning">

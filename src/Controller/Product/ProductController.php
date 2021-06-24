@@ -94,7 +94,7 @@ class ProductController extends SiteCacheController
             'search' => $search
         ];
         $colProductAllCategory = ProductCategory::getCategories($this, $productType, $productCategoryId, $defaultLanguage, $options);
-
+        //dd($colProductAllCategory);
         if ($productCategoryId = $request->query->get('category')) {
             $colProductCategory = ProductCategory::getCategories($this, $productType, $productCategoryId, $defaultLanguage, $options);
 
@@ -410,7 +410,6 @@ class ProductController extends SiteCacheController
         if ($objDataProducts) {
             $arProducts = $objDataProducts->colProducts;
         }
-
         $json['htmlProducts'] = null;
         $json['htmlPagination'] = null;
         if ($arProducts) {

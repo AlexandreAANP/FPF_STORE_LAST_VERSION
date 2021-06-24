@@ -47,6 +47,7 @@ class ProductCategoryController extends SiteCacheController
             $productType = implode(',', $productType);
         }
 
+  
         $url = $parent->apiUrl . '/api/getProductCategories?productType=' . $productType . '&productCategoryId=' . $productCategoryId . '&language=' . $defaultLanguage . '&search=' . urlencode($search) . '&region=' . urlencode($region);
         if ($data = $parent->getAPIData($url)) {
             $objData = json_decode($data, JSON_UNESCAPED_UNICODE);
@@ -67,7 +68,7 @@ class ProductCategoryController extends SiteCacheController
         if (array_key_exists('colProductCategories', $objData)) {
             $colProductCategories = $objData['colProductCategories'];
         }
-
+        
         $arPagination = [
             'totalRegisters' => $totalRegisters,
             'pages'          => $pages,

@@ -70,11 +70,12 @@
     <div class="b-b w-100">
         <div class="to-collapse collapse show" id="scoreCollapse">
             <div>
+              
                 {% if colProductAllCategory.colProductCategories is defined and colProductAllCategory.colProductCategories|length > 0 %}
                     {% if app.request.get('lastCategory') != '' %}
                         <div><a href="{{ baseUri }}/product?category={{ app.request.get('lastCategory') }}" class="text-black-50"><- Back</a></div>
                     {% endif %}
-
+                    <!--pre>{{dump(colProductAllCategory.colProductCategories)}}</pre-->
                     {% for category in colProductAllCategory.colProductCategories %}
                         {% set lastCategory = category.referenceKey %}
                         {% set checked = '' %}

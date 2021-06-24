@@ -10,6 +10,7 @@
     <div class="b-b w-100 bg-white">
         <div class="to-collapse collapse show" id="scoreCollapse">
             <div>
+
                 {% for category in colProductAllCategory.colProductCategories %}
                     <div class="closest">
                         <input type="checkbox" name="{{ category.referenceKey }}" id="{{ category.referenceKey }}" value="{{ category.referenceKey }}">

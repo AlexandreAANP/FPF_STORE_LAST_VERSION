@@ -21,8 +21,9 @@
             <div class="row">
                 <div class="col-12 col-md-4 col-xl-3 d-flex align-items-start mb-5">
                     {% if enableAsyncProducts %}
+                     
                         {% include '_render_block/product-filters-ajax.html.twig' %}
-                    {% else %}
+                    {% else %}                     
                         {% include '_render_block/product-filters.html.twig' %}
                     {% endif %}
                 </div>
@@ -81,6 +82,9 @@
 {% block javascripts %}
     {{ parent() }}
 
+
+ 
+
     <script>
         $(function () {
             var options = {
@@ -93,5 +97,14 @@
 
     {% if enableAsyncProducts %}
         <script src="/assets/js/product/querybiz-async-products.js?v={{ LayoutFunctions.getHashFile('/assets/js/product/querybiz-async-products.js') }}"></script>
+           <!--script type="text/javascript">
+
+    let href = window.location.href;
+    if(href.includes("#category=software")){
+        window.setTimeout(function() {$('#product-category-software').trigger('click');}, 500);
+        window.location.href = ""; 
+    }
+    </script-->
     {% endif %}
+
 {% endblock %}
