@@ -29,14 +29,14 @@
                                 {% trans %}Support Tickets{% endtrans %}
                             </h1>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button class="btn_open_new_ticket blue-btn background-color-purple">
+                                <button class="btn_open_new_ticket blue-btn background-color-purple rounded-0">
                                     {% trans %}Open a new Ticket{% endtrans %}
                                 </button>
                                 <div class="d-flex">
-                                    <a data-spinner="" href="{{ baseUri }}/customer/support" class="{{ status == 'closed' ? 'primary-btn text-white background-color-orange' : 'secondary-btn text-white background-color-yellow' }} mr-3">
+                                    <a data-spinner="" href="{{ baseUri }}/customer/support" class="{{ status == 'closed' ? 'primary-btn text-white background-color-orange rounded-0' : 'secondary-btn text-white background-color-yellow rounded-0' }} mr-3">
                                         {% trans %}Opened Tickets{% endtrans %}
                                     </a>
-                                    <a data-spinner="" href="{{ baseUri }}/customer/support/closed" class="{{ status == 'closed' ? 'secondary-btn text-white background-color-yellow' : 'primary-btn text-white background-color-orange' }}">
+                                    <a data-spinner="" href="{{ baseUri }}/customer/support/closed" class="{{ status == 'closed' ? 'secondary-btn text-white background-color-yellow rounded-0' : 'primary-btn text-white background-color-orange rounded-0' }}">
                                         {% trans %}Closed Tickets{% endtrans %}
                                     </a>
                                 </div>
@@ -119,7 +119,7 @@
                                 <div class="row mt-3 p-3 bg-light text-info" id="support_no_tickets">
                                     <div class="col text-center">
                                         <h4>{% trans %}There is no Support Ticket registered{% endtrans %}</h4>
-                                        <button class="btn_open_new_ticket blue-btn mx-auto mt-3 background-color-blue">{% trans %}Click here and Open a new Ticket{% endtrans %}</button>
+                                        <button class="btn_open_new_ticket blue-btn mx-auto mt-3 background-color-blue rounded-0">{% trans %}Click here and Open a new Ticket{% endtrans %}</button>
                                     </div>
                                 </div>
                             {% endif %}

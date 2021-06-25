@@ -57,9 +57,9 @@
                                     <input type="text" name="email" required value="{{ arCustomer.email ?? '' }}" placeholder="{% trans %}Email{% endtrans %}" class="form-control">
                                 </div>
                                 <div class="form-group d-flex">
-                                    <button type="button" class="btn-form-edit secondary-btn background-color-purple">{% trans %}Edit{% endtrans %}</button>
-                                    <button type="button" class="d-none btn-form-cancel primary-btn text-white background-color-yellow">{% trans %}Cancel{% endtrans %}</button>
-                                    <button data-spinner="" type="submit" class="d-none ml-3 btn-form-save blue-btn background-color-orange">{% trans %}Save{% endtrans %}</button>
+                                    <button type="button" class="btn-form-edit secondary-btn background-color-purple rounded-0">{% trans %}Edit{% endtrans %}</button>
+                                    <button type="button" class="d-none btn-form-cancel primary-btn text-white background-color-yellow rounded-0">{% trans %}Cancel{% endtrans %}</button>
+                                    <button data-spinner="" type="submit" class="d-none ml-3 btn-form-save blue-btn background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                                 </div>
                             </form>
                         </div>
@@ -88,9 +88,9 @@
                                 </div>
 
                                 <div class="form-group d-flex">
-                                    <button type="button" class="btn-form-change secondary-btn background-color-purple">{% trans %}Change{% endtrans %}</button>
-                                    <button type="button" class="d-none btn-form-cancel primary-btn text-white background-color-yellow">{% trans %}Cancel{% endtrans %}</button>
-                                    <button data-spinner="" type="submit" class="d-none ml-3 btn-form-save blue-btn background-color-orange">{% trans %}Save{% endtrans %}</button>
+                                    <button type="button" class="btn-form-change secondary-btn background-color-purple rounded-0">{% trans %}Change{% endtrans %}</button>
+                                    <button type="button" class="d-none btn-form-cancel primary-btn text-white background-color-yellow rounded-0">{% trans %}Cancel{% endtrans %}</button>
+                                    <button data-spinner="" type="submit" class="d-none ml-3 btn-form-save blue-btn background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                                 </div>
                             </form>
                         </div>
@@ -99,7 +99,7 @@
                         <!-- Contacts -->
                         <div class="col-12 mb-4">
                             <h1 class="profile-header mb-3">{% trans %}Contacts{% endtrans %}</h1>
-                            <button type="button" data-form="add_contact" data-modal="modal_form_contact" class="btn-add-data secondary-btn background-color-purple">{% trans %}Add{% endtrans %}</button>
+                            <button type="button" data-form="add_contact" data-modal="modal_form_contact" class="btn-add-data secondary-btn background-color-purple rounded-0">{% trans %}Add{% endtrans %}</button>
 
                             <div class="row mt-3">
                                 {% for key, contactType in colCustomerContact %}
@@ -136,11 +136,11 @@
                                             {% endfor %}
 
                                             <div class="text-center mb-2">
-                                                <span value="{% trans %}Cancel{% endtrans %}" class="btn float-left primary-btn btn-form-cancel d-none text-white background-color-yellow">
+                                                <span value="{% trans %}Cancel{% endtrans %}" class="btn float-left primary-btn btn-form-cancel d-none text-white background-color-yellow rounded-0">
                                                     {% trans %}Cancel{% endtrans %}
                                                 </span>
-                                                <button data-spinner="" type="submit" id="update_contact_{{ loop.index }}" class="blue-btn btn-form-save d-none float-right background-color-orange">{% trans %}Save{% endtrans %}</button>
-                                                <button type="button" class="btn-form-edit secondary-btn background-color-purple">{% trans %}Edit{% endtrans %}</button>
+                                                <button data-spinner="" type="submit" id="update_contact_{{ loop.index }}" class="blue-btn btn-form-save d-none float-right background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
+                                                <button type="button" class="btn-form-edit secondary-btn background-color-purple rounded-0">{% trans %}Edit{% endtrans %}</button>
                                             </div>
                                         </form>
                                     </div>
@@ -153,7 +153,7 @@
 
                         <div class="col-12 mb-4">
                             <h1 class="profile-header mb-3">{% trans %}Address{% endtrans %}</h1>
-                            <button type="button" data-form="add_address" data-modal="modal_form_address" class="btn-add-data secondary-btn background-color-purple">{% trans %}Add{% endtrans %}</button>
+                            <button type="button" data-form="add_address" data-modal="modal_form_address" class="btn-add-data secondary-btn background-color-purple rounded-0">{% trans %}Add{% endtrans %}</button>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
@@ -242,12 +242,12 @@
                                             </div>
                                             <div class="col-12 col-lg-12">
                                                 <div class="text-center mx-auto">
-                                                    <button type="button" class="btn-form-edit secondary-btn background-color-purple">{% trans %}Edit{% endtrans %}</button>
+                                                    <button type="button" class="btn-form-edit secondary-btn background-color-purple rounded-0">{% trans %}Edit{% endtrans %}</button>
                                                     <div class="btn-group float-left">
                                                         <span value="{% trans %}Cancel{% endtrans %}" class="float-left btn btn-secondary btn-form-cancel d-none text-white background-color-yellow border-color-yellow">{% trans %}Cancel{% endtrans %}</span>
-                                                        <span data-id='{{ address.id }}' data-action="address" class="btn btn-danger btn-form-delete d-none">{% trans %}Delete{% endtrans %}</span>
+                                                        <span data-id='{{ address.id }}' data-action="address" class="btn btn-danger btn-form-delete d-none rounded-0">{% trans %}Delete{% endtrans %}</span>
                                                     </div>
-                                                    <button data-spinner="" class="btn-form-save d-none float-right blue-btn background-color-orange">{% trans %}Save{% endtrans %}</button>
+                                                    <button data-spinner="" class="btn-form-save d-none float-right blue-btn background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,8 +307,8 @@
                         </form>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button class="primary-btn text-white background-color-yellow " data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                        <button data-spinner="" class="blue-btn btn-add-contact background-color-orange">{% trans %}Save{% endtrans %}</button>
+                        <button class="primary-btn text-white background-color-yellow rounded-0" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                        <button data-spinner="" class="blue-btn btn-add-contact background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                     </div>
 
             </div>
@@ -404,8 +404,8 @@
 
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button class="primary-btn text-white background-color-yellow" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                        <button data-spinner="" class="blue-btn btn-add-address background-color-orange">{% trans %}Save{% endtrans %}</button>
+                        <button class="primary-btn text-white background-color-yellow rounded-0" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                        <button data-spinner="" class="blue-btn btn-add-address background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                     </div>
             </div>
         </div>
@@ -494,8 +494,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button class="btn btn-secondary" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                <button data-spinner="" class="btn btn-success" id="form_add_address_submit">{% trans %}Save{% endtrans %}</button>
+                <button class="btn btn-secondary rounded-0" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                <button data-spinner="" class="btn btn-success rounded-0" id="form_add_address_submit">{% trans %}Save{% endtrans %}</button>
             </div>
 
     </div>

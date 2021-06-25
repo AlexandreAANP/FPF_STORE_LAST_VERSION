@@ -42,7 +42,7 @@
 
                     <div class="mb-5 d-flex justify-content-between align-items-center">
                         <h1 class="profile-header mb-3">{% trans %}Invoice Data{% endtrans %}</h1>
-                        <button type="button" class="btn-add-data secondary-btn background-color-purple">{% trans %}Add{% endtrans %}</button>
+                        <button type="button" class="btn-add-data secondary-btn background-color-purple rounded-0">{% trans %}Add{% endtrans %}</button>
                     </div>
 
                     <!-- start invoice data -->
@@ -154,20 +154,20 @@
 
                                         <div class="col-12 col-lg-12">
                                             <div class="text-center">
-                                                <button type="button" class="btn-edit secondary-btn background-color-purple">{% trans %}Edit{% endtrans %}</button>
+                                                <button type="button" class="btn-edit secondary-btn background-color-purple rounded-0">{% trans %}Edit{% endtrans %}</button>
                                                 <div class="btn-group float-left">
-                                                <button type="button" class="float-left primary-btn btn-cancel d-none text-white background-color-yellow">
+                                                <button type="button" class="float-left primary-btn btn-cancel d-none text-white background-color-yellow rounded-0">
                                                     {% trans %}Cancel{% endtrans %}
                                                 </button>
 
                                                     {% if loop.index > 1 %}
 
-                                                        <span class="btn btn-danger btn-delete d-none">{% trans %}Delete{% endtrans %}</span>
+                                                        <span class="btn btn-danger btn-delete d-none rounded-0">{% trans %}Delete{% endtrans %}</span>
 
                                                     {% endif %}
 
                                                 </div>
-                                                <button type="submit" class="blue-btn btn-save d-none float-right background-color-orange">{% trans %}Save{% endtrans %}</button>
+                                                <button type="submit" class="blue-btn btn-save d-none float-right background-color-orange rounded-0">{% trans %}Save{% endtrans %}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -295,8 +295,8 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button class="primary-btn text-white background-color-yellow" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                    <button class="blue-btn btn-new-data background-color-orange"> {% trans %}Save{% endtrans %}</button>
+                    <button class="primary-btn text-white background-color-yellow rounded-0" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                    <button class="blue-btn btn-new-data background-color-orange rounded-0"> {% trans %}Save{% endtrans %}</button>
                 </div>
             </div>
         </div>
