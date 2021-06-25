@@ -94,7 +94,7 @@ class ProductController extends SiteCacheController
             'search' => $search
         ];
         $colProductAllCategory = ProductCategory::getCategories($this, $productType, $productCategoryId, $defaultLanguage, $options);
-        //dd($colProductAllCategory);
+        
         if ($productCategoryId = $request->query->get('category')) {
             $colProductCategory = ProductCategory::getCategories($this, $productType, $productCategoryId, $defaultLanguage, $options);
 
@@ -106,7 +106,6 @@ class ProductController extends SiteCacheController
                 $colProductCategorySub = $this->organizePerCategoryId($colProductCategorySub);
             }
         }
-
         $page = $page == '' ? 1 : $page;
 
         $colProducts    = [];
@@ -179,6 +178,30 @@ class ProductController extends SiteCacheController
             'currentPage'    => $currentPage,
         ];
 
+
+        $counterCategory = [];
+        for($i = 0; $i < count($colProducts); $i++){
+            foreach ($colProducts[$i]['colProductCategory'] as $key => $value) {
+                if(array_key_exists($value['name'], $counterCategory)){
+                    $counterCategory[$value['name']]++;
+                }
+                else{
+                    $counterCategory[$value['name']] = 1;
+                }
+            }
+        }
+        foreach ($colProductAllCategory['colProductCategories'] as $key => $value) {
+            if(array_key_exists($value['name'], $counterCategory)){
+                $colProductAllCategory['colProductCategories'][$key]['totalProducts']=$counterCategory[$value['name']];
+            }
+            else{
+                $colProductAllCategory['colProductCategories'][$key]['totalProducts']=0;
+            }
+        }
+
+
+
+
         $arReturn = [
             'controllerName'        => $controllerName,
             'productType'           => $productType,
@@ -188,7 +211,7 @@ class ProductController extends SiteCacheController
             'colProducts'           => $colProducts,
             'arPagination'          => $arPagination,
         ];
-
+        
         if (!$productType) {
             return $arReturn;
         }
