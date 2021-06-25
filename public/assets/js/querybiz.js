@@ -276,7 +276,7 @@ var querybiz = {
 				text: 'Please choose one option?',
 				icon: 'warning',
 				confirmButtonText: 'Login',
-				cancelButtonText: 'se',
+				cancelButtonText: 'Close',
 				denyButtonText: 'Create Account',
 				reverseButtons: true
 
